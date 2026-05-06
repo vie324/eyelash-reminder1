@@ -58,3 +58,25 @@ export async function getCurrentTenantId(): Promise<string> {
   const tenant = await getCurrentTenant();
   return tenant.id;
 }
+
+// ページ表示時、env未設定 / Webhook未同期でもクラッシュさせず銀杏UIを出すため。
+// 解決失敗の理由を呼び出し側で出し分けたい時に使う。
+export type TenantResolution =
+  | { status: "ok"; tenant: Tenant }
+  | { status: "error"; code: TenantResolutionError["code"] | "internal"; message: string };
+
+export async function tryGetCurrentTenant(): Promise<TenantResolution> {
+  try {
+    const tenant = await getCurrentTenant();
+    return { status: "ok", tenant };
+  } catch (e) {
+    if (e instanceof TenantResolutionError) {
+      return { status: "error", code: e.code, message: e.message };
+    }
+    return {
+      status: "error",
+      code: "internal",
+      message: e instanceof Error ? e.message : String(e),
+    };
+  }
+}

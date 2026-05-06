@@ -32,7 +32,8 @@
     "react-syntax-highlighter": "^15.6.1",
     "svix": "^1.92.2",
     "tailwindcss": "^4.2.2",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@types/qrcode": "^1.5.6",
