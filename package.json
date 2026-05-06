@@ -30,6 +30,7 @@
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
     "react-syntax-highlighter": "^15.6.1",
+    "svix": "^1.92.2",
     "tailwindcss": "^4.2.2",
     "typescript": "^5.9.3"
   },

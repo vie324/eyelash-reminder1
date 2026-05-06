@@ -11,10 +11,10 @@ CREATE TABLE tenants (
   clerk_org_id TEXT UNIQUE NOT NULL,
   name TEXT NOT NULL,
   slug TEXT UNIQUE NOT NULL,
-  line_channel_id TEXT NOT NULL,
-  line_channel_access_token TEXT NOT NULL,    -- 暗号化推奨
-  line_channel_secret TEXT NOT NULL,          -- 暗号化推奨
-  liff_id TEXT NOT NULL,
+  line_channel_id TEXT,                       -- NULL許容: Clerk Webhookで作成された直後はNULL、admin設定で埋める
+  line_channel_access_token TEXT,             -- NULL許容 + 暗号化保存（src/lib/crypto.ts）
+  line_channel_secret TEXT,                   -- NULL許容 + 暗号化保存
+  liff_id TEXT,                               -- NULL許容
   reminder_days_before INT NOT NULL DEFAULT 2,
   reminder_send_hour INT NOT NULL DEFAULT 9 CHECK (reminder_send_hour BETWEEN 0 AND 23),
   reminder_send_minute INT NOT NULL DEFAULT 0 CHECK (reminder_send_minute BETWEEN 0 AND 59),
